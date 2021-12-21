@@ -1,8 +1,6 @@
 import styles from "./Button.module.css";
 
 export default function Button(props) {
-  console.log(props);
-
   const { clicar, children } = props;
   return (
     <button onClick={clicar} className={styles.BotaoMrt}>
@@ -11,9 +9,6 @@ export default function Button(props) {
   );
 }
 
-
-export function Abc () {
-  return (
-    <h1>Oi</h1>
-  )
+export function Abc() {
+  return <h1>Oi</h1>;
 }

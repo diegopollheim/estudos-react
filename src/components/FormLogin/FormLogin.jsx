@@ -1,11 +1,10 @@
 import styles from "./FormLogin.module.css";
 import Button from "../Button/Button";
+import ButtonS from "../ButtonS/ButtonS";
 
 export default function FormLogin() {
-
-
   function clicou() {
-    alert('clique')
+    alert("clique");
   }
 
   return (
@@ -29,9 +28,10 @@ export default function FormLogin() {
             type="password"
             placeholder="Insira a sua senha"
           />
-          <button className={styles.FormLogin__RememberEmail}>
-            Esqueci meu e-mail
-          </button>
+          <div className={styles.FormLogin__RememberEmail}>
+            <ButtonS variant="link">Esqueci meu e-mail</ButtonS>
+          </div>
+
           <span className={styles.FormLogin__NewClient}>
             Ainda não é cliente? Abra sua empresa com a gente e tenha acesso à
             sua contabilidade online 24 horas por dia.
@@ -39,9 +39,7 @@ export default function FormLogin() {
               Saiba mais
             </a>
           </span>
-          <Button clicar={clicou}>
-            Próximo
-          </Button>
+          <ButtonS variant="filled">Proximo</ButtonS>
         </div>
       </div>
     </div>
