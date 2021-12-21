@@ -1,0 +1,10 @@
+.BotaoMrt {
+    background-color: #3367d6;
+    width: fit-content;
+    color: white;
+    font-size: 14px;
+    padding: 8px 32px;
+    border-radius: 5px;
+    align-self: flex-end;
+    cursor: pointer;
+}
