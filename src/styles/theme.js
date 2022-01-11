@@ -2,6 +2,7 @@ import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
   // Definir as FONTES padrões
+  
   typography: {
     fontSize: 14,
     h1: {
@@ -38,7 +39,7 @@ const theme = createTheme({
     body2: {
       fontSize: "0.875rem", // 14px
       fontWeight: 400,
-      lineHeight: "1.25rem", // 24px
+      lineHeight: "1.25rem", // 20px
       letterSpacing: "0.01071em",
     },
   },
@@ -84,6 +85,13 @@ const theme = createTheme({
             "&:hover": {
               background: "rgb(255,255,255, 0.2)",
             },
+          },
+
+          props: { variant: "balloon" },
+          style: {
+            background: "none",
+            color: "#636363",
+            padding: "4px"
           },
         },
       ],
@@ -149,6 +157,18 @@ const theme = createTheme({
             "&:hover": {
               background: "none",
             },
+          },
+        },
+      ],
+    },
+    
+    MuiPaper: {
+      variants: [
+        {
+          props: { variant: "transparent" },
+          style: {
+            backgroundColor: "transparent",
+            boxShadow: "none",
           },
         },
       ],
