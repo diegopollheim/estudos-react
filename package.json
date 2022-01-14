@@ -18,6 +18,8 @@
     "prop-types": "latest",
     "react": "latest",
     "react-dom": "latest",
+    "react-imask": "^6.2.2",
+    "react-input-mask": "^2.0.4",
     "styled-components": "^5.3.3"
   },
   "devDependencies": {

@@ -9,16 +9,19 @@ import {
   TextField,
   Button,
   ButtonGroup,
+  OutlinedInput,
 } from "@mui/material";
 import logoMoreto from "/public/images/logo.svg";
 import logoEmail from "./images/gmail.png";
 import logoAccess from "./images/access.png";
 import Capa from "./images/Capa.jpg";
 import Image from "next/image";
-
+import InputSenha$ from "../InputSenha$/InputSenha$";
+import { IMaskInput } from "react-imask";
+import InputCnpj$ from "../InputCnpj$/InputCnpj$";
 
 export default function FormLogin() {
-  const [etapa, setEtapa] = React.useState(8);
+  const [etapa, setEtapa] = React.useState(7);
   const [load, setLoad] = React.useState(false);
   const containerRef = React.useRef(null);
 
@@ -85,11 +88,21 @@ export default function FormLogin() {
         return <PwTemp />; // Sem permissão de acesso
       case 8:
         return <RecoverMail />; // Escqueci meu e-mail
+      case 9:
+        return <RecoverMail2 />; // Etapa 2 Recuperar email
+      case 10:
+        return <RecoverMailSuccess />; // Recuperação de email concluída
     }
   };
 
   // ETP EMAIL 1
   const EtapaEmail = () => {
+    function handleClick() {
+      // === Ativar loading e desativar apos consulta
+      //setLoad(true)
+      // IMPLEMENTAR CÓDIGO PARA BUSCAR O USER NA BUBBLE
+      //setLoad(false)
+    }
     return (
       <>
         <Slide
@@ -115,9 +128,21 @@ export default function FormLogin() {
                 px: [3, 5],
               }}>
               <TextField type="email" label="Email" required />
-              <Button variant="link" disableRipple sx={{ mt: 1, mb: 0.5 }}>
+              <Button
+                variant="link"
+                disableRipple
+                sx={{ mt: 1, mb: 0.5 }}
+                onClick={() => {
+                  setLoad(true);
+
+                  setTimeout(() => {
+                    setEtapa(8);
+                    setLoad(false);
+                  }, 800);
+                }}>
                 Esqueci meu email
               </Button>
+
               <Typography variant="body2" color="text.light" sx={{ pt: 4 }}>
                 Ainda não é cliente? Abra sua empresa com a gente e tenha acesso
                 à sua contabilidade online 24 horas por dia.{" "}
@@ -132,7 +157,7 @@ export default function FormLogin() {
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={NextStep}>
+                    onClick={handleClick}>
                     Próximo
                   </Button>
                 </Box>
@@ -146,6 +171,10 @@ export default function FormLogin() {
 
   // ETP SENHA 2
   const EtapaSenha = () => {
+    function handleClick() {
+      //LOGAR USER
+    }
+
     return (
       <>
         <Slide
@@ -170,7 +199,10 @@ export default function FormLogin() {
                 flexDirection: "column",
                 px: [3, 5],
               }}>
-              <TextField type="password" label="Senha" required />
+              {/* INPUT SENHA*/}
+              <InputSenha$ label="Senha" value="123" />
+
+              {/* BOTOES DE AÇÃO  */}
               <Box
                 sx={{
                   display: "flex",
@@ -190,7 +222,10 @@ export default function FormLogin() {
                   disableRipple>
                   Esqueceu sua senha?
                 </Button>
-                <Button variant="contained" color="primary" onClick={NextStep}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleClick}>
                   Próximo
                 </Button>
               </Box>
@@ -333,6 +368,10 @@ export default function FormLogin() {
 
   // RECOVER PASSWORD 4
   const RecoverPassword = () => {
+    function handleClick() {
+      // ENVIAR EMAIL DE RECUPERAÇÃO DE SENHA AQUI
+    }
+
     return (
       <>
         <Slide
@@ -385,7 +424,10 @@ export default function FormLogin() {
                   }}>
                   Voltar
                 </Button>
-                <Button variant="contained" color="primary" onClick={NextStep}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleClick}>
                   Enviar e-mail
                 </Button>
               </Box>
@@ -552,13 +594,9 @@ export default function FormLogin() {
                 flexDirection: "column",
                 px: [3, 5],
               }}>
-              <TextField
-                type="password"
-                label="Insira a nova senha"
-                sx={{ mb: 2 }}
-                required
-              />
-              <TextField type="password" label="Repita a senha" required />
+              <InputSenha$ label="Insira sua senha" />
+              <InputSenha$ label="Repita sua senha" />
+
               <Box
                 sx={{
                   display: "flex",
@@ -583,7 +621,7 @@ export default function FormLogin() {
         <Slide
           appear={!load}
           direction="left"
-          in={etapa === 8}
+          in={true}
           container={containerRef.current}>
           <Box>
             {/* TITULO */}
@@ -604,7 +642,8 @@ export default function FormLogin() {
                 flexDirection: "column",
                 px: [3, 5],
               }}>
-              <TextField type="text" label="Insira o CNPJ" required />
+              <InputCnpj$ label="Insira o CNPJ" />
+
               <Box
                 sx={{
                   display: "flex",
@@ -614,16 +653,89 @@ export default function FormLogin() {
                 <Button
                   variant="link"
                   onClick={() => {
-                    setLoad(true);
-
-                    setTimeout(() => {
-                      setEtapa(4);
-                      setLoad(false);
-                    }, 800);
+                    setEtapa(1);
                   }}
                   disableRipple>
-                  Esqueceu sua senha?
+                  Voltar
                 </Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={NextStep}
+                  disabled={false}>
+                  Próximo
+                </Button>
+              </Box>
+
+              {/* INPUT COM MASCARA CNPJ AO INSERIR DADOS 
+                  NAO CONSIGO APLICAR A PROPRIEDADE ONCHANGE PARA O TEXTFIELD
+              
+              */}
+              <input
+                id="cnpj"
+                type="text"
+                placeholder="CNPJ DA EMPRESA"
+                maxlength="18"
+                onChange={() => {
+                  document
+                    .getElementById("cnpj")
+                    .addEventListener("input", function (e) {
+                      var x = e.target.value
+                        .replace(/\D/g, "")
+                        .match(/(\d{0,2})(\d{0,3})(\d{0,3})(\d{0,4})(\d{0,2})/);
+                      e.target.value = !x[2]
+                        ? x[1]
+                        : x[1] +
+                          "." +
+                          x[2] +
+                          "." +
+                          x[3] +
+                          "/" +
+                          x[4] +
+                          (x[5] ? "-" + x[5] : "");
+                    });
+                }}
+              />
+            </Box>
+          </Box>
+        </Slide>
+      </>
+    );
+  };
+
+  // RECUPERAR EMAIL 9 ETAPA 2
+  const RecoverMail2 = () => {
+    return (
+      <>
+        <Slide
+          direction="left"
+          in={true}
+          container={containerRef.current}
+          appear={!load}>
+          <Box>
+            {/* TITULO */}
+            <Stack alignItems="center" sx={{ mb: 3 }}>
+              <Typography component="h1" variant="h2">
+                Localizar e-mail{" "}
+              </Typography>
+              <Typography>Preencha o formulário abaixo</Typography>
+            </Stack>
+
+            {/* FORMULÁRIO */}
+            <Box
+              component="form"
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                px: [3, 5],
+              }}>
+              <Stack sx={{ rowGap: 2 }}>
+                <TextField type="text" label="Nome completo" />
+                <TextField type="text" label="Telefone para contato" />
+                <TextField type="email" label="Seu e-mail atual" />
+              </Stack>
+
+              <Box sx={{ display: "flex", mt: 5, justifyContent: "end" }}>
                 <Button variant="contained" color="primary" onClick={NextStep}>
                   Próximo
                 </Button>
@@ -635,6 +747,57 @@ export default function FormLogin() {
     );
   };
 
+  // RECUPERAR EMAIL 9 ETAPA 2
+  const RecoverMailSuccess = () => {
+    return (
+      <>
+        <Slide
+          direction="left"
+          in={true}
+          container={containerRef.current}
+          appear={!load}>
+          <Box>
+            {/* TITULO */}
+            <Stack alignItems="center" sx={{ px: [3, 5], mb: 3 }}>
+              <Typography component="h1" variant="h2">
+                Solicitação recebida{" "}
+              </Typography>
+              <Typography variant="body1" sx={{ pt: 2, textAlign: "center" }}>
+                Nós entraremos em contato assim que localizarmos a sua conta
+              </Typography>
+            </Stack>
+
+            {/* FORMULÁRIO */}
+            <Box
+              component="form"
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                px: [3, 5],
+              }}>
+              <Stack alignItems="center" sx={{ height: "112px" }}>
+                <Image
+                  src={logoEmail}
+                  layout="fixed"
+                  width={150}
+                  height={112}
+                />
+              </Stack>
+
+              <Box sx={{ display: "flex", mt: 5, justifyContent: "end" }}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => setEtapa(1)}>
+                  Sair
+                </Button>
+              </Box>
+            </Box>
+          </Box>
+        </Slide>
+      </>
+    );
+  };
   // INICIO DO FORM LOGIN
   return (
     <Box
@@ -646,11 +809,7 @@ export default function FormLogin() {
         minHeight: "100vh",
         position: "relative",
       }}>
-      <Image
-        src={Capa}
-        layout="fill"
-        objectFit="cover"
-      />
+      <Image src={Capa} layout="fill" objectFit="cover" />
       <Card
         // ref={containerRef}
         sx={{
@@ -699,6 +858,8 @@ export default function FormLogin() {
             <Button onClick={() => setEtapa(6)}>6</Button>
             <Button onClick={() => setEtapa(7)}>7</Button>
             <Button onClick={() => setEtapa(8)}>8</Button>
+            <Button onClick={() => setEtapa(9)}>9</Button>
+            <Button onClick={() => setEtapa(10)}>10</Button>
           </ButtonGroup>
         </Stack>
       </Card>
