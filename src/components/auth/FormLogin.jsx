@@ -17,11 +17,10 @@ import logoAccess from "./images/access.png";
 import Capa from "./images/Capa.jpg";
 import Image from "next/image";
 import InputSenha$ from "../InputSenha$/InputSenha$";
-import { IMaskInput } from "react-imask";
 import InputCnpj$ from "../InputCnpj$/InputCnpj$";
 
 export default function FormLogin() {
-  const [etapa, setEtapa] = React.useState(7);
+  const [etapa, setEtapa] = React.useState(1);
   const [load, setLoad] = React.useState(false);
   const containerRef = React.useRef(null);
 
@@ -97,12 +96,29 @@ export default function FormLogin() {
 
   // ETP EMAIL 1
   const EtapaEmail = () => {
+    // CONTROLADOR DO ESTADO DO INPUT EMAIL
+    const [valInputEmail, setValInputEmail] = React.useState("");
+
     function handleClick() {
       // === Ativar loading e desativar apos consulta
-      //setLoad(true)
       // IMPLEMENTAR CÓDIGO PARA BUSCAR O USER NA BUBBLE
-      //setLoad(false)
+
+      setLoad(true);
+      setTimeout(() => {
+        if (valInputEmail.trim() === "teste@teste") {
+          setEtapa(2);
+        } else {
+          alert(
+            "VALOR DIGITADO: " +
+              valInputEmail +
+              "\nQTD CARACTERES: " +
+              valInputEmail.length
+          ); //
+        }
+        setLoad(false);
+      }, 2000);
     }
+
     return (
       <>
         <Slide
@@ -127,7 +143,16 @@ export default function FormLogin() {
                 flexDirection: "column",
                 px: [3, 5],
               }}>
-              <TextField type="email" label="Email" required />
+              <TextField
+                type="email"
+                label="Email"
+                value={valInputEmail}
+                onChange={(e) => {
+                  setValInputEmail(e.target.value); // ATUALIZA EM TEMPO REAL O VALOR DO STATE DO INPUT
+                }}
+                required
+              />
+
               <Button
                 variant="link"
                 disableRipple
@@ -157,7 +182,8 @@ export default function FormLogin() {
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={handleClick}>
+                    onClick={handleClick}
+                    >
                     Próximo
                   </Button>
                 </Box>
@@ -171,8 +197,21 @@ export default function FormLogin() {
 
   // ETP SENHA 2
   const EtapaSenha = () => {
-    function handleClick() {
+    // STATE SENHA DO USER
+    const [pw, setPw] = React.useState("");
+
+    function handleClick(e) {
       //LOGAR USER
+
+      setLoad(true);
+      setTimeout(() => {
+        if (pw === "1234") {
+          setEtapa(3);
+        } else {
+          alert("SENHA INCORRETA!");
+        }
+        setLoad(false);
+      }, 2000);
     }
 
     return (
@@ -200,7 +239,13 @@ export default function FormLogin() {
                 px: [3, 5],
               }}>
               {/* INPUT SENHA*/}
-              <InputSenha$ label="Senha" value="123" />
+              <InputSenha$
+                id="teste"
+                label="Senha"
+                value={pw}
+                pw={pw}
+                setPw={setPw}
+              />
 
               {/* BOTOES DE AÇÃO  */}
               <Box
@@ -225,7 +270,8 @@ export default function FormLogin() {
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={handleClick}>
+                  onClick={handleClick}
+                  disabled={pw.length >= 4 ? false : true}>
                   Próximo
                 </Button>
               </Box>
@@ -368,6 +414,9 @@ export default function FormLogin() {
 
   // RECOVER PASSWORD 4
   const RecoverPassword = () => {
+
+
+   
     function handleClick() {
       // ENVIAR EMAIL DE RECUPERAÇÃO DE SENHA AQUI
     }
@@ -570,6 +619,10 @@ export default function FormLogin() {
 
   // ETP SENHA TEMP 7
   const PwTemp = () => {
+    const [newPw, setNewPw]= React.useState("");
+    const [repeatNewPw, setRepeatNewPw]= React.useState("");
+
+
     return (
       <>
         <Slide
@@ -594,8 +647,8 @@ export default function FormLogin() {
                 flexDirection: "column",
                 px: [3, 5],
               }}>
-              <InputSenha$ label="Insira sua senha" />
-              <InputSenha$ label="Repita sua senha" />
+             <TextField type="password" label="Insira sua senha"/>
+             <TextField type="password" label="Repita a senha" sx={{mt:2}} />
 
               <Box
                 sx={{

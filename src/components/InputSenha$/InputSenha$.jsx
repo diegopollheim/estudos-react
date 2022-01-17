@@ -2,6 +2,7 @@ import * as React from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   FormControl,
+  FormHelperText,
   IconButton,
   InputAdornment,
   InputLabel,
@@ -19,14 +20,16 @@ export default function InputSenha$(props) {
       <FormControl sx={{ my: 1 }} variant="outlined">
         <InputLabel
           htmlFor="outlined-adornment-password"
-          sx={{bbColor:"white"}}
-          >
+          sx={{ bbColor: "white" }}>
           {props.label}
         </InputLabel>
         <OutlinedInput
-          id="outlined-adornment-password"
+          id="password"
+          value={props.value}
           type={showPw ? "text" : "password"}
-          onChange={() => {}}
+          onChange={(e) => {
+            props.setPw(e.target.value);
+          }}
           endAdornment={
             <InputAdornment position="end">
               <IconButton

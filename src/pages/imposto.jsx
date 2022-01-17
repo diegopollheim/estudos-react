@@ -5,6 +5,7 @@ import {
   Card,
   Container,
   IconButton,
+  Input,
   Link,
   Stack,
   Typography,
@@ -13,8 +14,14 @@ import MenuSup from "../components/header/MenuSup";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DownloadIcon from "@mui/icons-material/Download";
 import CommentSharpIcon from "@mui/icons-material/CommentSharp";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import CarimboPago from "/public/images/carimbo-pago.png";
+import CarimboVencido from "/public/images/carimbo-vencido.png";
+import Image from "next/image";
+import React from "react";
 
 export default function Page() {
+  const [pago, setPago] = React.useState(true);
   return (
     <>
       <MenuSup />
@@ -34,7 +41,8 @@ export default function Page() {
             direction="row"
             justifyContent="space-between"
             alignItems="center">
-            <Breadcrumbs separator=">" sx={{ fontSize: "14px" }}>
+            <Breadcrumbs  maxItems={2
+            } separator=">" sx={{ fontSize: "14px" }}>
               <Link color="text.secondary" underline="hover">
                 Empresa Modelo
               </Link>
@@ -53,11 +61,26 @@ export default function Page() {
       </Box>
 
       {/* CONTEÚDO DA PÁGINA */}
-
       <Container
         sx={{
-          maxWidth: { sm: "835px" },
+          maxWidth: { sm: "835px", position: "relative" },
         }}>
+        {/* CARIMBOS IMPOSTO */}
+        <Box
+          sx={{
+            position: "absolute",
+            top: "-24px",
+            right: "0px",
+            zIndex: "5",
+          }}>
+          
+          <Box name="carimbo-pago" display={pago ? "flex" : "none"}>
+            <Image src={CarimboPago} width={116} height={116} />
+          </Box>
+          <Box name="carimbo-vencido" display={!pago ? "flex" : "none"}>
+            <Image src={CarimboVencido} width={170} height={116} />
+          </Box>
+        </Box>
         {/* CARD INTRO INFO IMPOSTO */}
         <Card sx={{ position: "relative", p: "25px", mt: 6 }}>
           <Typography component="h1" variant="h2" sx={{ mb: 1 }}>
@@ -103,7 +126,6 @@ export default function Page() {
             alignItems=""
             justifyContent="end"
             sx={{
-              backgroundColor: "#ff0080",
               mb: 2,
               fontWeight: "400",
               position: "absolute",
@@ -157,13 +179,16 @@ export default function Page() {
             flexDirection: { xs: "column", sm: "row" },
             justifyContent: { xs: "center", sm: "space-around" },
             alignItems: { xs: "none", sm: "center" },
+            mb: [2, 0],
           }}>
           <Button
             maxWidth="sm"
             variant="contained"
-            color="success"
-            sx={{ mb: 2, mt: 2, width: "100%" }}>
-            INFORMAR PAGAMENTO
+            color={pago? "error": "success"}
+            sx={{ mb: 2, mt: 2, width: "100%", minWidth: "197px" }}
+            onClick={()=>{setPago(!pago)}}
+            >
+            {pago? "CANCELAR PAGAMENTO": "INFORMAR PAGAMENTO"}
           </Button>
           <Button maxWidth="sm" variant="contained" sx={{ width: "100%" }}>
             VISUALIZAR BOLETO
@@ -177,33 +202,164 @@ export default function Page() {
         </Stack>
       </Container>
 
-      {/* XXXXXXXXXXXXXXXXXXX */}
-      <Container maxWidth="lg">
+      {/* INFORMAÇÕES DO PAGAMENTO */}
+      <Container
+        sx={{
+          maxWidth: { sm: "835px" },
+          mb: 2,
+        }}>
         <Box>
-        <Typography component="h1" variant="h4" sx={{ mb: 2 }}>
-          Informações adicionais
-        </Typography>
-        <Card sx={{ position: "relative", p: "25px" }}>
+          <Typography component="h1" variant="h4" sx={{ mb: 2 }}>
+            Informações do pagamento
+          </Typography>
+          <Card sx={{ position: "relative" }}>
+            <Box
+              sx={{
+                px: "25px",
+                py: 2,
+                borderBottom: "1px solid #E0E0E0",
+                width: "100%",
+              }}>
+              <Stack
+                sx={{
+                  flexDirection: { sm: "row" },
+                }}>
+                <Typography
+                  sx={{
+                    fontSize: { sm: "16px" },
+                    mb: "5px",
+                    minWidth: "220px",
+                  }}
+                  variant="body2">
+                  Situação do pagamento
+                </Typography>
+                <Typography
+                  sx={{ fontSize: { sm: "16px" }, width: "fit-content" }}
+                  variant="body2"
+                  color="text.secondary">
+                  Pagamento informado
+                </Typography>
+              </Stack>
+            </Box>
+
+            <Box
+              sx={{
+                px: "25px",
+                py: 2,
+                borderBottom: "1px solid #E0E0E0",
+                width: "100%",
+              }}>
+              <Stack
+                sx={{
+                  flexDirection: { sm: "row" },
+                }}>
+                <Typography
+                  sx={{
+                    fontSize: { sm: "16px" },
+                    mb: "5px",
+                    minWidth: "220px",
+                  }}
+                  variant="body2">
+                  Data do pagamento
+                </Typography>
+                <Typography
+                  sx={{ fontSize: { sm: "16px" }, width: "fit-content" }}
+                  variant="body2"
+                  color="text.secondary">
+                  30/12/2021
+                </Typography>
+              </Stack>
+            </Box>
+
+            <Box sx={{ px: "25px", py: 2, width: "100%" }}>
+              <Stack
+                sx={{
+                  flexDirection: { sm: "row" },
+                }}>
+                <Typography
+                  sx={{
+                    fontSize: { sm: "16px" },
+                    mb: "5px",
+                    minWidth: "220px",
+                  }}
+                  variant="body2">
+                  Pagamento informado por
+                </Typography>
+                <Typography
+                  sx={{ fontSize: { sm: "16px" }, width: "fit-content" }}
+                  variant="body2"
+                  color="text.secondary">
+                  Diego Pollheim
+                </Typography>
+              </Stack>
+            </Box>
+          </Card>
+        </Box>
+      </Container>
+      {/* FIM INFORMAÇÕES DO PAGAMENTO */}
+
+      {/* FILE UPLOADER */}
+      <Container
+        sx={{
+          maxWidth: { sm: "835px" },
+          mb: 2,
+        }}>
+        <Card
+          sx={{ position: "relative", height: "100px", width: "100%", p: 3 }}>
           <Stack direction="row">
-           <Box>
-           <IconButton size="auto" disableRipple variant="balloon">
-              <CommentSharpIcon fontSize="inherit" sx={{ color: "balloon", mr:1}} />
+            <IconButton size="large" color="primary">
+              <AddCircleIcon />
             </IconButton>
-           </Box>
-            <Box>
+            <Box sx={{ ml: 3 }}>
               <Typography
-                component="h5"
-                variant="h5"
-                sx={{ lineHeight: "30px" }}>
-                Diego Pollheim
+                variant="body2"
+                sx={{ fontSize: { sm: "16px" }, fontWeight: "500", mb: 0.7 }}>
+                Anexar recibo de pagamento
               </Typography>
-              <Typography variant="body2">Sem observações adicionais</Typography>
+              <Typography variant="body2" sx={{ fontSize: { sm: "16px" } }}>
+                Você também pode arrasta-lo aqui
+              </Typography>
             </Box>
           </Stack>
         </Card>
+      </Container>
+      {/* FIM FILE UPLOADER */}
+
+      {/* INFORMAÇÕES ADICIONAIS */}
+      <Container
+        sx={{
+          maxWidth: { sm: "835px" },
+        }}>
+        <Box>
+          <Typography component="h1" variant="h4" sx={{ mb: 2 }}>
+            Informações adicionais
+          </Typography>
+          <Card sx={{ position: "relative", p: "25px" }}>
+            <Stack direction="row">
+              <Box>
+                <IconButton size="auto" disableRipple variant="balloon">
+                  <CommentSharpIcon
+                    fontSize="inherit"
+                    sx={{ color: "balloon", mr: 1 }}
+                  />
+                </IconButton>
+              </Box>
+              <Box>
+                <Typography
+                  component="h5"
+                  variant="h5"
+                  sx={{ lineHeight: "30px" }}>
+                  Diego Pollheim
+                </Typography>
+                <Typography variant="body2">
+                  Sem observações adicionais
+                </Typography>
+              </Box>
+            </Stack>
+          </Card>
         </Box>
       </Container>
-      {/* XXXXXXXXXXXXXXXXXXX */}
+      {/* FIM INFORMAÇÕES ADICIONAIS */}
     </>
   );
 }
