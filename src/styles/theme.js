@@ -31,7 +31,7 @@ const theme = createTheme({
       lineHeight: "1.3125rem", // 21px
     },
     body1: {
-      fontSize: "1rem", // 16px
+      fontSize: {xs:"0.875rem", sm:"1rem"}, // 16px
       fontWeight: 400,
       lineHeight: "1.5rem", // 24px
       letterSpacing: "0.00938em",
@@ -154,6 +154,21 @@ const theme = createTheme({
             minWidth: "auto",
             width: "fit-content",
             padding: "0",
+            "&:hover": {
+              background: "none",
+            },
+          },
+        },
+        {
+          props: { variant: "btn-link" },
+          style: {
+            background: "none",
+            color: "#1a73e8",
+            fontWeight: "400",
+            minWidth: "auto",
+            width: "fit-content",
+            padding: "0",
+
             "&:hover": {
               background: "none",
             },

@@ -9,6 +9,8 @@ import {
   Link,
   Stack,
   Typography,
+  InputBase,
+  TableContainer,
 } from "@mui/material";
 import MenuSup from "../components/header/MenuSup";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -18,10 +20,20 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import CarimboPago from "/public/images/carimbo-pago.png";
 import CarimboVencido from "/public/images/carimbo-vencido.png";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import CardAviso from "../components/cardAviso/CardAviso";
+import ReplyIcon from "@mui/icons-material/Reply";
+import TableRegistroImposto$ from "../components/tableRegistoImposto$/TableRegistroImposto$";
 
 export default function Page() {
   const [pago, setPago] = React.useState(true);
+  const searchInput = useRef(null);
+
+  // DAR FOCUS NO FILE UPLOADER
+  function handleFocus() {
+    searchInput.current.click();
+  }
+
   return (
     <>
       <MenuSup />
@@ -41,8 +53,7 @@ export default function Page() {
             direction="row"
             justifyContent="space-between"
             alignItems="center">
-            <Breadcrumbs  maxItems={2
-            } separator=">" sx={{ fontSize: "14px" }}>
+            <Breadcrumbs maxItems={2} separator=">" sx={{ fontSize: "14px" }}>
               <Link color="text.secondary" underline="hover">
                 Empresa Modelo
               </Link>
@@ -73,7 +84,6 @@ export default function Page() {
             right: "0px",
             zIndex: "5",
           }}>
-          
           <Box name="carimbo-pago" display={pago ? "flex" : "none"}>
             <Image src={CarimboPago} width={116} height={116} />
           </Box>
@@ -184,11 +194,12 @@ export default function Page() {
           <Button
             maxWidth="sm"
             variant="contained"
-            color={pago? "error": "success"}
-            sx={{ mb: 2, mt: 2, width: "100%", minWidth: "197px" }}
-            onClick={()=>{setPago(!pago)}}
-            >
-            {pago? "CANCELAR PAGAMENTO": "INFORMAR PAGAMENTO"}
+            color={pago ? "error" : "success"}
+            sx={{ mb: 2, mt: 2, width: "100%", minWidth: "198px" }}
+            onClick={() => {
+              setPago(!pago);
+            }}>
+            {pago ? "CANCELAR PAGAMENTO" : "INFORMAR PAGAMENTO"}
           </Button>
           <Button maxWidth="sm" variant="contained" sx={{ width: "100%" }}>
             VISUALIZAR BOLETO
@@ -202,13 +213,26 @@ export default function Page() {
         </Stack>
       </Container>
 
-      {/* INFORMAÇÕES DO PAGAMENTO */}
+      {/* CARD AVISO */}
       <Container
         sx={{
           maxWidth: { sm: "835px" },
           mb: 2,
         }}>
-        <Box>
+        <CardAviso>
+          <Typography variant="body1" sx={{ textAlign: "center" }}>
+            Esse imposto foi recalculado. Clique aqui para ver os dados da nova
+            guia do imposto.
+          </Typography>
+        </CardAviso>
+      </Container>
+      {/* INFORMAÇÕES DO PAGAMENTO */}
+      <Container
+        sx={{
+          maxWidth: { sm: "835px" },
+          mb: 2
+        }}>
+        <Box sx={{ pb: 2 }}>
           <Typography component="h1" variant="h4" sx={{ mb: 2 }}>
             Informações do pagamento
           </Typography>
@@ -295,40 +319,145 @@ export default function Page() {
             </Box>
           </Card>
         </Box>
-      </Container>
-      {/* FIM INFORMAÇÕES DO PAGAMENTO */}
 
-      {/* FILE UPLOADER */}
-      <Container
-        sx={{
-          maxWidth: { sm: "835px" },
-          mb: 2,
-        }}>
+        {/* CARD SEM ANEXO PGTO */}
         <Card
-          sx={{ position: "relative", height: "100px", width: "100%", p: 3 }}>
-          <Stack direction="row">
-            <IconButton size="large" color="primary">
-              <AddCircleIcon />
+          onClick={handleFocus}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            cursor: "pointer",
+            position: "relative",
+            height: "100%",
+            width: "100%",
+            p: 2,
+          }}>
+          <Stack alignItems="strech" direction="row" sx={{ width: "100%" }}>
+            <IconButton size="large" color="primary" disableRipple>
+              <AddCircleIcon sx={{ width: "40px", height: "40px" }} />
             </IconButton>
-            <Box sx={{ ml: 3 }}>
+            <Stack justifyContent="space-between" sx={{ ml: 3, py: 1 }}>
               <Typography
                 variant="body2"
-                sx={{ fontSize: { sm: "16px" }, fontWeight: "500", mb: 0.7 }}>
+                sx={{ fontSize: { sm: "16px" }, fontWeight: "500" }}>
                 Anexar recibo de pagamento
               </Typography>
               <Typography variant="body2" sx={{ fontSize: { sm: "16px" } }}>
-                Você também pode arrasta-lo aqui
+                Clique para anexar o comprovante
               </Typography>
+            </Stack>
+          </Stack>
+          <InputBase
+            id="comprovante-pgto"
+            inputRef={searchInput}
+            type="file"
+            sx={{ display: "none" }}
+          />
+        </Card>
+        {/* CARD COM ANEXO PGTO */}
+        <Card
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            position: "relative",
+            height: "100%",
+            width: "100%",
+            p: 2,
+          }}>
+          <Stack
+            alignItems="strech"
+            sx={{ flexDirection: { xs: "column", sm: "row" }, width: "100%" }}>
+            <Stack direction="row" name="direita">
+              <IconButton
+                size="large"
+                color="primary"
+                sx={{ transform: "rotateY(180deg)" }}
+                disableRipple>
+                <ReplyIcon sx={{ width: "40px", height: "40px" }} />
+              </IconButton>
+
+              <Stack justifyContent="space-between" sx={{ ml: 3, py: 1 }}>
+                <Typography
+                  variant="body2"
+                  sx={{ fontSize: { sm: "16px" }, fontWeight: "500" }}>
+                  Comprovante de pagamento
+                </Typography>
+                <Stack direction="row" sx={{ alignItems: "center" }}>
+                  <Typography
+                    variant="body2"
+                    sx={{ lineHeight: "auto", fontSize: { sm: "16px" } }}>
+                    Arquivo:
+                  </Typography>
+                  <Button
+                    variant="link"
+                    sx={{ ml: 1, lineHeight: "auto" }}
+                    disableRipple>
+                    DAS01-23-01-2022.jpg
+                  </Button>
+                </Stack>
+              </Stack>
+            </Stack>
+            <Box
+              name="esquerda"
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                height: "35px",
+                ml: ["0px", "auto"],
+                my: ["0px", "auto"],
+              }}>
+              <Button variant="btn-link" disableRipple>
+                Excluir arquivo
+              </Button>
             </Box>
           </Stack>
         </Card>
+        {/* CARD IMPOSTO NAO PAGO */}
+        <Card
+          sx={{
+            position: "relative",
+            height: "100%",
+            width: "100%",
+            px: 3,
+            pt: 2,
+          }}>
+          <Box sx={{ width: "100%" }}>
+            <Typography
+              variant="body2"
+              sx={{ fontSize: { sm: "16px" }, fontWeight: "500", mb: "5px" }}>
+              Comprovante de pagamento
+            </Typography>
+
+            <Typography
+              variant="body2"
+              sx={{ lineHeight: "auto", fontSize: { sm: "16px" } }}>
+              Já realizou este pagamento? Informe o pagamento clicando no botão
+              abaixo para manter sua plataforma sempre em dia
+            </Typography>
+          </Box>
+          <Stack
+            justifyContent="center"
+            sx={{
+              position: "relative",
+              mx: -3,
+              mt: 2,
+              px: 3,
+              height: "50px",
+              borderTop: "1px solid #E0E0E0",
+            }}>
+            <Button variant="btn-link" disableRipple>
+              Informar Pagamento
+            </Button>
+          </Stack>
+        </Card>
       </Container>
-      {/* FIM FILE UPLOADER */}
+      {/* FIM INFORMAÇÕES DO PAGAMENTO */}
 
       {/* INFORMAÇÕES ADICIONAIS */}
       <Container
         sx={{
           maxWidth: { sm: "835px" },
+          mb: 3,
         }}>
         <Box>
           <Typography component="h1" variant="h4" sx={{ mb: 2 }}>
@@ -360,6 +489,19 @@ export default function Page() {
         </Box>
       </Container>
       {/* FIM INFORMAÇÕES ADICIONAIS */}
+     
+      {/* REGISTRO DESSE IMPOSTO */}
+      <Container
+        sx={{
+          maxWidth: { sm: "835px" },
+        }}>
+        <Box>
+          <Typography component="h1" variant="h4" sx={{ mb: 2 }}>
+            Histórico deste imposto
+          </Typography>
+          <TableRegistroImposto$ imposto={[1, 2, 3, 4, 5]} />
+        </Box>
+      </Container>
     </>
   );
 }
