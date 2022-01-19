@@ -81,6 +81,7 @@ export default function Page() {
                 fontWeight: "500",
                 textAlign: "center",
                 display: ["none", "flex"],
+                
               }}>
               EMP
             </Stack>
