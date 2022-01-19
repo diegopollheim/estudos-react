@@ -24,6 +24,7 @@ import React, { useEffect, useRef } from "react";
 import CardAviso from "../components/cardAviso/CardAviso";
 import ReplyIcon from "@mui/icons-material/Reply";
 import TableRegistroImposto$ from "../components/tableRegistoImposto$/TableRegistroImposto$";
+import Grafico from "../components/grafico/Grafico";
 
 export default function Page() {
   const [pago, setPago] = React.useState(true);
@@ -230,7 +231,7 @@ export default function Page() {
       <Container
         sx={{
           maxWidth: { sm: "835px" },
-          mb: 2
+          mb: 2,
         }}>
         <Box sx={{ pb: 2 }}>
           <Typography component="h1" variant="h4" sx={{ mb: 2 }}>
@@ -489,7 +490,13 @@ export default function Page() {
         </Box>
       </Container>
       {/* FIM INFORMAÇÕES ADICIONAIS */}
-     
+      <Container  sx={{
+          
+          maxWidth: { sm: "835px" },
+          mb: 3,
+        }}>
+        <Grafico />
+      </Container>
       {/* REGISTRO DESSE IMPOSTO */}
       <Container
         sx={{
