@@ -7,7 +7,8 @@ import dynamic from 'next/dynamic'
 
 // IMPORT COMPONENTE CHARTS SEM SSR
 //LINK EXPICANDO:
-//https://stackoverflow.com/questions/67784672/react-next-js-doesnt-seem-to-work-with-apexcharts
+// https://stackoverflow.com/questions/67784672/react-next-js-doesnt-seem-to-work-with-apexcharts
+
 const Chart = dynamic(
   () => import('react-apexcharts'),
   { ssr: false }
