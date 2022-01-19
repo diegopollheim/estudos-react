@@ -74,6 +74,7 @@ export default function MenuSup() {
                 }}>
                 <IconButton
                   variant="menu"
+                  color="white"
                   onClick={(event) => {
                     setAnchorSettings(event.currentTarget);
                   }}>
@@ -81,6 +82,7 @@ export default function MenuSup() {
                 </IconButton>
                 <IconButton
                   variant="menu"
+                  color="white"
                   onClick={(event) => {
                     setAnchorHome(event.currentTarget);
                   }}>
@@ -91,6 +93,7 @@ export default function MenuSup() {
                     setAnchorUser(event.currentTarget);
                   }}
                   variant="menu"
+                  color="white"
                   sx={{ ml: "16px !important", fontSize: "2.225rem" }}>
                   <AccountCircleIcon fontSize="inherit" />
                 </IconButton>
@@ -99,7 +102,7 @@ export default function MenuSup() {
 
               {/* MENU HAMBURGUER */}
               <Box sx={{ ml: "auto", display: { xs: "flex", md: "none" } }}>
-                <IconButton variant="menu">
+                <IconButton color="white">
                   <MenuIcon />
                 </IconButton>
               </Box>

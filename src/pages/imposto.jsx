@@ -11,6 +11,7 @@ import {
   Typography,
   InputBase,
   TableContainer,
+  Popover,
 } from "@mui/material";
 import MenuSup from "../components/header/MenuSup";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -25,9 +26,12 @@ import CardAviso from "../components/cardAviso/CardAviso";
 import ReplyIcon from "@mui/icons-material/Reply";
 import TableRegistroImposto$ from "../components/tableRegistoImposto$/TableRegistroImposto$";
 import Grafico from "../components/grafico/Grafico";
+import Footer from "../components/footer/Footer";
+import SubMenu from "../components/header/subMenu/SubMenu";
 
 export default function Page() {
   const [pago, setPago] = React.useState(true);
+  const [anchorArq, setAnchorArq] = React.useState(true);
   const searchInput = useRef(null);
 
   // DAR FOCUS NO FILE UPLOADER
@@ -54,7 +58,15 @@ export default function Page() {
             direction="row"
             justifyContent="space-between"
             alignItems="center">
-            <Breadcrumbs maxItems={2} separator=">" sx={{ fontSize: "14px" }}>
+            <Breadcrumbs
+              bgcolor="#ff0"
+              maxItems
+              itemsBeforeCollapse={1}
+              itemsAfterCollapse={1}
+              separator=">"
+              sx={{
+                fontSize: "14px",
+              }}>
               <Link color="text.secondary" underline="hover">
                 Empresa Modelo
               </Link>
@@ -71,6 +83,8 @@ export default function Page() {
           </Stack>
         </Container>
       </Box>
+
+     
 
       {/* CONTEÚDO DA PÁGINA */}
       <Container
@@ -206,6 +220,9 @@ export default function Page() {
             VISUALIZAR BOLETO
           </Button>
           <Button
+            onClick={(event) => {
+              setAnchorArq(event.currentTarget);
+            }}
             variant="contained"
             sx={{ minWidth: "125px", display: { xs: "none", sm: "flex" } }}
             endIcon={<DownloadIcon />}>
@@ -231,7 +248,7 @@ export default function Page() {
       <Container
         sx={{
           maxWidth: { sm: "835px" },
-          mb: 2,
+          mb: 3,
         }}>
         <Box sx={{ pb: 2 }}>
           <Typography component="h1" variant="h4" sx={{ mb: 2 }}>
@@ -372,7 +389,7 @@ export default function Page() {
               <IconButton
                 size="large"
                 color="primary"
-                sx={{ transform: "rotateY(180deg)" }}
+                sx={{ cursor: "default", transform: "rotateY(180deg)" }}
                 disableRipple>
                 <ReplyIcon sx={{ width: "40px", height: "40px" }} />
               </IconButton>
@@ -391,7 +408,11 @@ export default function Page() {
                   </Typography>
                   <Button
                     variant="link"
-                    sx={{ ml: 1, lineHeight: "auto" }}
+                    sx={{
+                      ml: 1,
+                      lineHeight: "auto",
+                      "&:hover": { textDecoration: "underline" },
+                    }}
                     disableRipple>
                     DAS01-23-01-2022.jpg
                   </Button>
@@ -490,13 +511,33 @@ export default function Page() {
         </Box>
       </Container>
       {/* FIM INFORMAÇÕES ADICIONAIS */}
-      <Container  sx={{
-          
+
+      {/* GRÁFICO IMPOSTO */}
+      <Container
+        sx={{
           maxWidth: { sm: "835px" },
           mb: 3,
         }}>
+        <Typography component="h1" variant="h4" sx={{ mb: 2 }}>
+          Histórico desse imposto
+        </Typography>
         <Grafico />
+        <Stack
+          alignItems="center"
+          sx={{
+            display: ["none", "flex"],
+          }}>
+          <Box sx={{ maxWidth: "585px" }}>
+            <CardAviso>
+              <Typography variant="body2" sx={{ textAlign: "center" }}>
+                Passe o mouse sobre o gráfico acima para ver os valores dos
+                impostos de cada mês
+              </Typography>
+            </CardAviso>
+          </Box>
+        </Stack>
       </Container>
+
       {/* REGISTRO DESSE IMPOSTO */}
       <Container
         sx={{
@@ -509,6 +550,9 @@ export default function Page() {
           <TableRegistroImposto$ imposto={[1, 2, 3, 4, 5]} />
         </Box>
       </Container>
+
+      {/* FOOTER */}
+      <Footer />
     </>
   );
 }

@@ -8,7 +8,7 @@ export default function SubMenu(props) {
   return (
     <>
       <Wrapper>
-        <Card width={props.width}>{props.children}</Card>
+        <Card width={width}>{children}</Card>
       </Wrapper>
     </>
   );

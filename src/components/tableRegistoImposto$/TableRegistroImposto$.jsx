@@ -46,9 +46,9 @@ export default function TableRegistroImposto$({ imposto }) {
           <TableHead
             sx={{ backgroundColor: "#F5F5F5", color: "text.secondary" }}>
             <TableRow>
-              <TableCell sx={{ pl: 3 }}>USUÁRIO</TableCell>
-              <TableCell align="center">DATA</TableCell>
-              <TableCell sx={{ p: 0 }}>DESCRIÇÃO</TableCell>
+              <TableCell sx={{ pl: 3, fontSize:"14px" }}>USUÁRIO</TableCell>
+              <TableCell align="center" sx={{fontSize:"14px"}}>DATA</TableCell>
+              <TableCell sx={{ p: 0, fontSize:"14px" }}>DESCRIÇÃO</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
