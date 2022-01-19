@@ -1,8 +1,17 @@
 import React, { Component } from "react";
-import Chart from "react-apexcharts";
+// import Chart from "react-apexcharts";
 import { Button, Card, Stack, Typography } from "@mui/material";
 import IconBack from "@mui/icons-material/ArrowBackIos";
 import IconNext from "@mui/icons-material/ArrowForwardIos";
+import dynamic from 'next/dynamic'
+
+// IMPORT COMPONENTE CHARTS SEM SSR
+//LINK EXPICANDO:
+//https://stackoverflow.com/questions/67784672/react-next-js-doesnt-seem-to-work-with-apexcharts
+const Chart = dynamic(
+  () => import('react-apexcharts'),
+  { ssr: false }
+)
 
 class Grafico extends Component {
   constructor(props) {
