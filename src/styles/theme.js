@@ -162,6 +162,7 @@ const theme = createTheme({
         {
           props: { variant: "btn-link" },
           style: {
+            fontSize:"0.875rem",
             background: "none",
             color: "#1a73e8",
             fontWeight: "400",

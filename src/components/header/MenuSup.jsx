@@ -26,7 +26,7 @@ export default function MenuSup() {
 
   return (
     <>
-      <AppBar position="static" color="primary">
+      <AppBar position="static" color="primary" sx={{boxShadow:"none"}} >
         <Container disableGutters="true" maxWidth="lg">
           <Toolbar sx={{ px: "0 !important" }}>
             <Container sx={{ display: "flex", alignItems: "center" }}>

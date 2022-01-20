@@ -96,6 +96,7 @@ export default function Page() {
         </Card>
       </Container>
 
+     
       {/* INFO BÁSICAS */}
       <Container
         sx={{
@@ -206,6 +207,7 @@ export default function Page() {
           </Card>
         </Box>
       </Container>
+    
 
       {/* SIT CADASTRAL */}
       <Container
