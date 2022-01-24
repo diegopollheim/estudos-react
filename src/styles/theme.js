@@ -2,9 +2,12 @@ import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
   // Definir as FONTES padrões
+
   
+
   typography: {
     fontSize: 14,
+   
     h1: {
       fontSize: "1.75rem", // 28px
       fontWeight: 700,
@@ -34,13 +37,35 @@ const theme = createTheme({
       fontSize: "1rem", // 16px
       fontWeight: 400,
       lineHeight: "1.5rem", // 24px
-      letterSpacing: "0.00938em",
+      letterSpacing: "0.00938em",     
     },
+
+    body1Gold:{
+      fontSize: '1rem', // 16px
+      fontWeight: 500,
+      lineHeight: "1.125rem",     
+    },
+
     body2: {
       fontSize: "0.875rem", // 14px
       fontWeight: 400,
       lineHeight: "1.25rem", // 20px
       letterSpacing: "0.01071em",
+      width:"fit-content", 
+
+      '@media (min-width:600px)': {
+        fontSize: '1rem'        
+      },    
+    },
+
+    body2Gold:{
+      fontSize: '0.875rem',
+      fontWeight: 500,
+      lineHeight: "1.125rem",
+
+      '@media (min-width:600px)': {
+        fontSize: '1rem'        
+      },
     },
   },
   // Definir as CORES padrões
@@ -64,6 +89,7 @@ const theme = createTheme({
       default: "#EEEEEE",
       paper: "#fff",
     },
+    
   },
   mixins: {
     toolbar: {
@@ -74,6 +100,23 @@ const theme = createTheme({
     },
   },
   components: {
+   
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          border: "1px solid #D6D6D6",
+          boxShadow: "rgb(170 170 170 / 60%) 1px 1px 8px 0px"
+        },
+      },
+      variants:[
+        {
+          props: {variant: "s-none"},
+          style:{
+            boxShadow:"none"
+          } // SHADOW NONE
+        }
+      ]
+    },
     MuiIconButton: {
       variants: [
         {
@@ -91,7 +134,7 @@ const theme = createTheme({
           style: {
             background: "none",
             color: "#636363",
-            padding: "4px"
+            padding: "4px",
           },
         },
       ],
@@ -162,7 +205,7 @@ const theme = createTheme({
         {
           props: { variant: "btn-link" },
           style: {
-            fontSize:"0.875rem",
+            fontSize: "0.875rem",
             background: "none",
             color: "#1a73e8",
             fontWeight: "400",
@@ -177,7 +220,7 @@ const theme = createTheme({
         },
       ],
     },
-    
+
     MuiPaper: {
       variants: [
         {
@@ -196,5 +239,7 @@ const theme = createTheme({
     },
   },
 });
+
+
 
 export default theme;

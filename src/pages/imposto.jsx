@@ -84,7 +84,7 @@ export default function Page() {
         </Container>
       </Box>
 
-     
+
 
       {/* CONTEÚDO DA PÁGINA */}
       <Container
@@ -146,34 +146,38 @@ export default function Page() {
           </Stack>
 
           {/* VALOR A PARTIR DA TELA SM */}
-          <Stack
-            direction="row"
-            alignItems=""
-            justifyContent="end"
-            sx={{
-              mb: 2,
-              fontWeight: "400",
-              position: "absolute",
-              top: "41px",
-              right: "25px",
-              display: { xs: "none", sm: "flex" },
-            }}>
-            {" "}
-            <Typography
-              color="text.light"
-              component="h1"
-              variant="h3"
-              sx={{ fontWeight: "400" }}>
-              R$
-            </Typography>
-            {/* PROBLEMA EM MANTER O TEXTO ALINHADO NO BOTTOM USANDO VARIANT H1 */}
-            <Typography sx={{ fontSize: "24px", fontWeight: "700", ml: "5px" }}>
-              21.348
-            </Typography>
+          <Box sx={{
+            mb: 2,
+            fontWeight: "400",
+            position: "absolute",
+            top: "41px",
+            right: "25px",
+            display: { xs: "none", sm: "flex" },
+          }}>
+            <Stack
+              direction="row"
+              alignItems="baseline"
+              
+            >
+              {" "}
+              <Typography
+                color="text.light"
+                component="h1"
+                variant="h3"
+                sx={{ fontWeight: "400" }}>
+                R$
+              </Typography>
+              {/* PROBLEMA EM MANTER O TEXTO ALINHADO NO BOTTOM USANDO VARIANT H1 */}
+              <Typography component="h1" variant="h1" sx={{ lineHeight:"100%", fontSize: "2.25rem", fontWeight: "700", ml: "5px" }}>
+                21.348
+              </Typography>
+
+            </Stack>
             <Typography variant="body2" color="text.light" sx={{ ml: "4px" }}>
               38
             </Typography>
-          </Stack>
+
+          </Box>
 
           <Stack>
             <Stack direction="row">
@@ -238,7 +242,7 @@ export default function Page() {
           mb: 2,
         }}>
         <CardAviso>
-          <Typography variant="body1" sx={{ textAlign: "center" }}>
+          <Typography sx={{ fontSize: ["0.875rem", "1rem"], textAlign: "center" }}>
             Esse imposto foi recalculado. Clique aqui para ver os dados da nova
             guia do imposto.
           </Typography>
@@ -254,7 +258,7 @@ export default function Page() {
           <Typography component="h1" variant="h4" sx={{ mb: 2 }}>
             Informações do pagamento
           </Typography>
-          <Card sx={{ position: "relative" }}>
+          <Card variant="s-none" sx={{ position: "relative" }}>
             <Box
               sx={{
                 px: "25px",
@@ -374,6 +378,7 @@ export default function Page() {
         </Card>
         {/* CARD COM ANEXO PGTO */}
         <Card
+          variant="s-none"
           sx={{
             display: "flex",
             alignItems: "center",
@@ -436,6 +441,7 @@ export default function Page() {
         </Card>
         {/* CARD IMPOSTO NAO PAGO */}
         <Card
+          variant="s-none"
           sx={{
             position: "relative",
             height: "100%",
@@ -485,7 +491,7 @@ export default function Page() {
           <Typography component="h1" variant="h4" sx={{ mb: 2 }}>
             Informações adicionais
           </Typography>
-          <Card sx={{ position: "relative", p: "25px" }}>
+          <Card variant="s-none" sx={{ position: "relative", p: "25px" }}>
             <Stack direction="row">
               <Box>
                 <IconButton size="auto" disableRipple variant="balloon">
@@ -545,7 +551,7 @@ export default function Page() {
         }}>
         <Box>
           <Typography component="h1" variant="h4" sx={{ mb: 2 }}>
-            Histórico deste imposto
+            Registro deste imposto
           </Typography>
           <TableRegistroImposto$ imposto={[1, 2, 3, 4, 5]} />
         </Box>

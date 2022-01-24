@@ -92,7 +92,7 @@ class Grafico extends Component {
 
   render() {
     return (
-      <Card sx={{ p: 3 }}>
+      <Card variant="s-none" sx={{ p: 3 }}>
         <Typography component="h1" variant="h4" sx={{mb:0.5}}>
           Histórico do Simples Nacional
         </Typography>

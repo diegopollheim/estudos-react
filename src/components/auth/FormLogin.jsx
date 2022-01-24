@@ -168,7 +168,7 @@ export default function FormLogin() {
                 Esqueci meu email
               </Button>
 
-              <Typography variant="body2" color="text.light" sx={{ pt: 4 }}>
+              <Typography color="text.light" sx={{lineHeight: "1.25rem", fontSize:"0.875rem", pt: 4 }}>
                 Ainda não é cliente? Abra sua empresa com a gente e tenha acesso
                 à sua contabilidade online 24 horas por dia.{" "}
                 <Box

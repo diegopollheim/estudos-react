@@ -36,6 +36,145 @@ export default function Page() {
   };
 
   const MeuContrato = () => {
+
+    // VARIÁVEIS DE USO NESSE ESCOPO
+    var metPgto = "boleto"
+
+    const MetPgtoAtivo = (metodo, cartCadast) => {
+
+      if (metodo === "cartao") {
+        if (cartCadast) {
+          return (
+            <>
+              {/* COM CARTÃO */}
+              <Stack>
+                <Box
+                  sx={{
+                    px: "25px",
+                    py: 1.814,
+                    borderBottom: "1px solid #E0E0E0",
+                    width: "100%",
+                  }}>
+                  <Box>
+                    <Stack direction="row">
+                      <Box width={70} height={70} sx={{ mr: 2 }}>
+                        <Image src={mastercard}
+                          layout="responsive" />
+                      </Box>
+                      <Stack>
+                        <Typography sx={{ fontSize: "0.875rem", lineHeight: "1.3125rem" }} sx={{
+                          mb: 1,
+                          fontSize: { sm: "1rem" }
+                        }}>Terminado em 6505</Typography>
+                        <Typography sx={{ fontSize: "0.875rem", lineHeight: "1.3125rem" }}>MasterCard</Typography>
+                        <Typography sx={{ fontSize: "0.875rem", lineHeight: "1.3125rem" }}>Vencimento: 10/2024</Typography>
+                      </Stack>
+                    </Stack>
+                  </Box>
+                </Box>
+
+                {/* ============== */}
+
+                {/* LINHA 3 */}
+                <Box
+                  sx={{
+                    px: "25px",
+                    py: 1.814,
+                  }}>
+                  <Button variant="btn-link" sx={{ fontSize: { sm: "1rem" } }} disableRipple>
+                    Alterar cartão
+                  </Button>
+                </Box>
+                {/* ============== */}
+              </Stack>
+              {/* ================= */}
+            </>
+          );
+        }
+        else {
+          return (
+            <>
+
+              {/* SEM CARTÃO */}
+              <Stack>
+                <Box
+
+                  sx={{
+                    px: "25px",
+                    py: 1.814,
+                    borderBottom: "1px solid #E0E0E0",
+                    width: "100%",
+                  }}>
+                  <Box
+
+                    sx={{
+                      py: 2,
+                    }}>
+                    <Typography
+                      variant="body2Gold">
+                      Nenhum cartão ativo
+                    </Typography>
+                  </Box>
+                </Box>
+                <Box
+                  sx={{
+                    px: "25px",
+                    py: 1.814,
+                  }}>
+                  <Button variant="btn-link" disableRipple>
+                    Cadastrar cartão
+                  </Button>
+                </Box>
+              </Stack>
+              {/* ============== */}
+            </>
+          )
+        }
+      }
+      else if (metodo === "boleto") {
+        return (<>
+          {/* LINHA 1 */}
+          <Box
+            sx={{
+              px: "25px",
+              py: 1.814,
+              borderBottom: "1px solid #E0E0E0",
+              width: "100%",
+            }}>
+            <Box
+              sx={{
+                py: [0, 0.5]
+              }}>
+              <Typography
+
+                sx={{ mb: 3 }}
+                variant="body2Gold"
+              >
+                Os boletos serão enviados para o email cadastrado em "Dados de cobrança"
+              </Typography>
+              <Typography
+                sx={{ fontSize: "0.875rem" }}>
+                   Você também poderá visualizar os boletos da sua fatura em Meu plano > Minhas Faturas
+              </Typography>
+            </Box>
+          </Box>
+          {/* ============== */}
+
+          {/* LINHA 2 */}
+          <Box
+            sx={{
+              px: "25px",
+              py: 1.814,
+            }}>
+            <Button variant="btn-link" sx={{ fontSize: { sm: "1rem" } }} disableRipple>
+              Ver meus dados de cobrança
+            </Button>
+          </Box>
+          {/* ============== */}
+        </>)
+      }
+    }
+
     return (
       <>
         {/* DADOS DO CONTRATO */}
@@ -67,7 +206,7 @@ export default function Page() {
                 color="text.link"
                 textAlign="right"
                 width="fit-content"
-                variant="body2"
+                sx={{ fontSize: "0.875rem", lineHeight: "1.3125rem" }}
                 alignItems="flex-end"
                 sx={{
                   display: ["none", "flex"],
@@ -107,23 +246,11 @@ export default function Page() {
                     },
                   }}>
                   <Typography
-                    sx={{
-                      fontSize: {
-                        sm: "16px",
-                      },
-
-                      minWidth: "220px",
-                    }}
+                    sx={{ minWidth: "220px" }}
                     variant="body2">
                     Nome do plano
                   </Typography>
                   <Typography
-                    sx={{
-                      fontSize: {
-                        sm: "16px",
-                      },
-                      width: "fit-content",
-                    }}
                     variant="body2"
                     color="text.secondary">
                     MEI - Dia 05
@@ -156,23 +283,11 @@ export default function Page() {
                     },
                   }}>
                   <Typography
-                    sx={{
-                      fontSize: {
-                        sm: "16px",
-                      },
-
-                      minWidth: "220px",
-                    }}
+                    sx={{ minWidth: "220px" }}
                     variant="body2">
                     Vencimento
                   </Typography>
                   <Typography
-                    sx={{
-                      fontSize: {
-                        sm: "16px",
-                      },
-                      width: "fit-content",
-                    }}
                     variant="body2"
                     color="text.secondary">
                     5 dia(s) após o término do período
@@ -205,23 +320,11 @@ export default function Page() {
                     },
                   }}>
                   <Typography
-                    sx={{
-                      fontSize: {
-                        sm: "16px",
-                      },
-
-                      minWidth: "220px",
-                    }}
+                    sx={{ minWidth: "220px" }}
                     variant="body2">
                     Próxima cobrança
                   </Typography>
                   <Typography
-                    sx={{
-                      fontSize: {
-                        sm: "16px",
-                      },
-                      width: "fit-content",
-                    }}
                     variant="body2"
                     color="text.secondary">
                     05/02/2022
@@ -254,23 +357,12 @@ export default function Page() {
                     },
                   }}>
                   <Typography
-                    sx={{
-                      fontSize: {
-                        sm: "16px",
-                      },
-
-                      minWidth: "220px",
-                    }}
+                    sx={{ minWidth: "220px" }}
                     variant="body2">
                     ID do cliente
                   </Typography>
                   <Typography
-                    sx={{
-                      fontSize: {
-                        sm: "16px",
-                      },
-                      width: "fit-content",
-                    }}
+
                     variant="body2"
                     color="text.secondary">
                     19135076
@@ -295,7 +387,7 @@ export default function Page() {
                     },
                     alignItems: {
                       xs: "start",
-                      sm: "center",
+                      sm: "space-between",
                     },
                     rowGap: {
                       xs: "5px",
@@ -304,22 +396,16 @@ export default function Page() {
                   }}>
                   <Typography
                     sx={{
-                      fontSize: {
-                        sm: "16px",
-                      },
+
                       minWidth: "220px",
                     }}
-                    d
                     variant="body2">
+
                     ID da assinatura
                   </Typography>
                   <Typography
-                    sx={{
-                      fontSize: {
-                        sm: "16px",
-                      },
-                      width: "fit-content",
-                    }}
+
+                    sx={{ fontSize: "0.875rem", lineHeight: "1.3125rem" }}
                     variant="body2"
                     color="text.secondary">
                     15676839
@@ -332,7 +418,7 @@ export default function Page() {
         </Box>
 
         {/* METODOS DE PAGAMENTO */}
-        <Box
+        <Stack
           sx={{
             maxWidth: {
               sm: "835px",
@@ -360,7 +446,7 @@ export default function Page() {
                 color="text.link"
                 textAlign="right"
                 width="fit-content"
-                variant="body2"
+                sx={{ fontSize: "0.875rem", lineHeight: "1.3125rem" }}
                 alignItems="flex-end"
                 sx={{
                   display: ["none", "flex"],
@@ -371,12 +457,12 @@ export default function Page() {
             </Stack>
 
             {/* CARTAO DE CRÉDITO */}
-            <Card 
-            
-            sx={{
-                            border: "1px solid #d6d6d6",
-              boxShadow: "none"
-            }}>
+            <Card
+
+              sx={{
+                border: "1px solid #d6d6d6",
+                boxShadow: "none"
+              }}>
 
               <Box
                 sx={{
@@ -387,117 +473,20 @@ export default function Page() {
                 }}>
                 <Stack>
                   <Typography
-                    sx={{
-                      fontSize: {
-                        sm: "16px",
-                      },
-
-                      minWidth: "220px",
-                    }}
-                    variant="body2">
-                    Cartão de crédito
+                    variant="body1">
+                    {metPgto === "cartao" ? "Cartão de crédito" : "Boleto bancário"}
                   </Typography>
                 </Stack>
               </Box>
               {/* ============== */}
 
-              <Stack >
-                {/* SEM CARTÃO */}
-                <Stack display="none">
-                  <Box
+              {MetPgtoAtivo(metPgto, true)}
 
-                    sx={{
-                      px: "25px",
-                      py: 1.814,
-                      borderBottom: "1px solid #E0E0E0",
-                      width: "100%",
-                    }}>
-                    <Box
-
-                      sx={{
-                        py: 2,
-                      }}>
-                      <Typography
-                        sx={{
-                          fontSize: {
-                            sm: "16px",
-                          },
-                          fontWeight: 500,
-                          minWidth: "220px",
-                        }}
-                        variant="body2">
-                        Nenhum cartão ativo
-                      </Typography>
-                    </Box>
-                  </Box>
-
-                  {/* ============== */}
-
-                  {/* LINHA 3 */}
-                  <Box
-                    sx={{
-                      px: "25px",
-                      py: 1.814,
-                    }}>
-                    <Button variant="btn-link" disableRipple>
-                      Cadastrar cartão
-                    </Button>
-                  </Box>
-                  {/* ============== */}
-                </Stack>
-
-                {/* COM CARTÃO */}
-                <Stack display="flex">
-                  <Box
-                    sx={{
-                      px: "25px",
-                      py: 1.814,
-                      borderBottom: "1px solid #E0E0E0",
-                      width: "100%",
-                    }}>
-                    <Box
-
-                      sx={{
-                        py: 2,
-                      }}>
-                      <Stack direction="row">
-                        <Box width={70} height={70} sx={{ mr: 2 }}>
-                          <Image src={mastercard}
-                            layout="responsive" />
-                        </Box>
-                        <Stack>
-                          <Typography variant="body2" sx={{
-                            mb: 1,
-                            fontSize: { sm: "1rem" }
-                          }}>Terminado em 6505</Typography>
-                          <Typography variant="body2">MasterCard</Typography>
-                          <Typography variant="body2">Vencimento: 10/2024</Typography>
-                        </Stack>
-                      </Stack>
-                    </Box>
-                  </Box>
-
-                  {/* ============== */}
-
-                  {/* LINHA 3 */}
-                  <Box
-                    sx={{
-                      px: "25px",
-                      py: 1.814,
-                    }}>
-                    <Button variant="btn-link" sx={{ fontSize: { sm: "1rem" } }} disableRipple>
-                      Alterar cartão
-                    </Button>
-                  </Box>
-                  {/* ============== */}
-
-                </Stack>
-              </Stack>
             </Card>
 
-            
+
           </Box>
-        </Box>
+        </Stack>
         {/* FATURAS EM ABERTO */}
         <Box
           sx={{
@@ -527,7 +516,7 @@ export default function Page() {
                 color="text.link"
                 textAlign="right"
                 width="fit-content"
-                variant="body2"
+                sx={{ fontSize: "0.875rem", lineHeight: "1.3125rem" }}
                 alignItems="flex-end"
                 sx={{
                   display: ["none", "flex"],
@@ -552,28 +541,15 @@ export default function Page() {
                 }}>
                 <Box
                   sx={{
-                    py: 2,
+                    py: [0, 0.5]
                   }}>
                   <Typography
-                    sx={{
-                      fontSize: {
-                        sm: "16px",
-                      },
-                      fontWeight: 500,
-                      minWidth: "220px",
-                      mb: 0.5,
-                    }}
-                    variant="body2">
+                    sx={{ mb: 1 }}
+                    variant="body2Gold">
                     Parabéns! Você não possui faturas a pagar.
                   </Typography>
                   <Typography
-                    sx={{
-                      fontSize: {
-                        sm: "16px",
-                      },
-                      minWidth: "220px",
-                    }}
-                    variant="body2">
+                    sx={{ fontSize: "0.875rem" }}>
                     Você poderá verificar as faturas a pagar e o histórico de
                     pagamentos através da aba 'Minhas Faturas'
                   </Typography>
@@ -599,10 +575,14 @@ export default function Page() {
         </Box>
       </>
     );
+
   };
 
 
   const DadosCobranca = () => {
+
+    var endCadastrado = true
+
     return (
       <>
         {/* DADOS COBRANÇA */}
@@ -634,7 +614,7 @@ export default function Page() {
                 color="text.link"
                 textAlign="right"
                 width="fit-content"
-                variant="body2"
+                sx={{ fontSize: "0.875rem", lineHeight: "1.3125rem" }}
                 alignItems="flex-end"
                 sx={{
                   display: ["none", "flex"],
@@ -673,23 +653,12 @@ export default function Page() {
                     },
                   }}>
                   <Typography
-                    sx={{
-                      fontSize: {
-                        sm: "16px",
-                      },
-
-                      minWidth: "220px",
-                    }}
+                    sx={{ minWidth: "220px" }}
                     variant="body2">
                     Razão Social
                   </Typography>
                   <Typography
-                    sx={{
-                      fontSize: {
-                        sm: "16px",
-                      },
-                      width: "fit-content",
-                    }}
+
                     variant="body2"
                     color="text.secondary">
                     Empresa Modelo
@@ -722,23 +691,12 @@ export default function Page() {
                     },
                   }}>
                   <Typography
-                    sx={{
-                      fontSize: {
-                        sm: "16px",
-                      },
-
-                      minWidth: "220px",
-                    }}
+                    sx={{ minWidth: "220px" }}
                     variant="body2">
                     CNPJ
                   </Typography>
                   <Typography
-                    sx={{
-                      fontSize: {
-                        sm: "16px",
-                      },
-                      width: "fit-content",
-                    }}
+
                     variant="body2"
                     color="text.secondary">
                     08290118970
@@ -771,23 +729,12 @@ export default function Page() {
                     },
                   }}>
                   <Typography
-                    sx={{
-                      fontSize: {
-                        sm: "16px",
-                      },
-
-                      minWidth: "220px",
-                    }}
+                    sx={{ minWidth: "220px" }}
                     variant="body2">
                     E-mail
                   </Typography>
                   <Typography
-                    sx={{
-                      fontSize: {
-                        sm: "16px",
-                      },
-                      width: "fit-content",
-                    }}
+
                     variant="body2"
                     color="text.secondary">
                     eng.gcorrea@gmail.com
@@ -820,23 +767,12 @@ export default function Page() {
                     },
                   }}>
                   <Typography
-                    sx={{
-                      fontSize: {
-                        sm: "16px",
-                      },
-
-                      minWidth: "220px",
-                    }}
+                    sx={{ minWidth: "220px" }}
                     variant="body2">
                     Telefone fixo
                   </Typography>
                   <Typography
-                    sx={{
-                      fontSize: {
-                        sm: "16px",
-                      },
-                      width: "fit-content",
-                    }}
+
                     variant="body2"
                     color="text.secondary">
                     +55 47 3053-7667
@@ -869,23 +805,12 @@ export default function Page() {
                     },
                   }}>
                   <Typography
-                    sx={{
-                      fontSize: {
-                        sm: "16px",
-                      },
-                      minWidth: "220px",
-                    }}
-
+                    sx={{ minWidth: "220px" }}
                     variant="body2">
                     Telefone celular
                   </Typography>
                   <Typography
-                    sx={{
-                      fontSize: {
-                        sm: "16px",
-                      },
-                      width: "fit-content",
-                    }}
+
                     variant="body2"
                     color="text.secondary">
                     +55 47 99231-3674
@@ -916,26 +841,10 @@ export default function Page() {
                       sm: "0px",
                     },
                   }}>
-                  <Typography
-                    sx={{
-                      fontSize: {
-                        sm: "16px",
-                      },
-                      minWidth: "220px",
-                    }}
-
-                    variant="body2">
+                  <Typography sx={{ minWidth: "220px" }} variant="body2">
                     Telefone celular
                   </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: {
-                        sm: "16px",
-                      },
-                      width: "fit-content",
-                    }}
-                    variant="body2"
-                    color="text.secondary">
+                  <Typography variant="body2" color="text.secondary">
                     +55 47 98828-8391
                   </Typography>
                 </Stack>
@@ -975,7 +884,7 @@ export default function Page() {
                 color="text.link"
                 textAlign="right"
                 width="fit-content"
-                variant="body2"
+                sx={{ fontSize: "0.875rem", lineHeight: "1.3125rem" }}
                 alignItems="flex-end"
                 sx={{
                   display: ["none", "flex"],
@@ -995,25 +904,24 @@ export default function Page() {
               <Box
                 sx={{
                   px: "25px",
-                  py: 1.814,
+                  py: 2,
                   width: "100%",
                 }}>
-                <Box
-                  sx={{
-                    py: 2,
-                  }}>
-                  <Typography
+                {endCadastrado === true ?
+                  <Stack>
+                    <Typography variant="body2Gold" mb={1}>RUA GERMANO HOSCHPRUNG, 90</Typography>
+                    <Typography sx={{ fontSize: "0.875rem", lineHeight: "1.3125rem" }} >GALPAOA</Typography>
+                    <Typography sx={{ fontSize: "0.875rem", lineHeight: "1.3125rem" }} >BRUSQUE, SOUZA CRUZ</Typography>
+                    <Typography sx={{ fontSize: "0.875rem", lineHeight: "1.3125rem" }} >SC (88359-030)</Typography>
+                  </Stack>
+                  :
+                  <Box
                     sx={{
-                      fontSize: {
-                        sm: "16px",
-                      },
-                      fontWeight: 500,
-                      minWidth: "220px",
-                    }}
-                    variant="body2">
-                    Nenhum endereço cadastrado
-                  </Typography>
-                </Box>
+                      py: 2,
+                    }}>
+                    <Typography variant="body1Gold">Nenhum endereço cadastrado</Typography>
+                  </Box>
+                }
               </Box>
               {/* ============== */}
 
@@ -1056,7 +964,7 @@ export default function Page() {
                 color="text.link"
                 textAlign="right"
                 width="fit-content"
-                variant="body2"
+                sx={{ fontSize: "0.875rem", lineHeight: "1.3125rem" }}
                 alignItems="flex-end"
                 sx={{
                   display: ["none", "flex"],
@@ -1071,7 +979,7 @@ export default function Page() {
                 <Box width={190} height={190}>
                   <Image src={ilustSemFaturas} layout="responsive" />
                 </Box>
-                <Typography textAlign="center" variant="body2" sx={{
+                <Typography textAlign="center" sx={{ fontSize: "0.875rem", lineHeight: "1.3125rem" }} sx={{
                   fontSize: {
                     sm: "16px",
                   }
@@ -1111,7 +1019,7 @@ export default function Page() {
                 color="text.link"
                 textAlign="right"
                 width="fit-content"
-                variant="body2"
+                sx={{ fontSize: "0.875rem", lineHeight: "1.3125rem" }}
                 alignItems="flex-end"
                 sx={{
                   display: ["none", "flex"],
@@ -1134,14 +1042,7 @@ export default function Page() {
                     py: 2,
                   }}>
                   <Typography
-                    sx={{
-                      fontSize: {
-                        sm: "16px",
-                      },
-                      fontWeight: 500,
-                      minWidth: "220px",
-                    }}
-                    variant="body2">
+                    variant="body2Gold">
                     Sem histórico de faturas pagas
                   </Typography>
                 </Box>
@@ -1175,7 +1076,7 @@ export default function Page() {
 
       <Box
         sx={{
-          width: "100vw",
+          width: "100%",
           position: "absolute",
           top: "95px",
         }}>
@@ -1236,7 +1137,7 @@ export default function Page() {
                   Empresa Modelo 123
                 </Typography>
                 <Typography
-                  variant="body2"
+                  sx={{ fontSize: "0.875rem", lineHeight: "1.3125rem" }}
                   sx={{
                     fontSize: {
                       sm: "1rem",
@@ -1260,17 +1161,19 @@ export default function Page() {
               borderBottom: "1px solid #c7c7c7",
               mb: 3,
             }}>
+            {/* ABAS */}
             <Tabs
               centered
               value={value}
               onChange={handleChange}
               variant="scrollable"
+              sx={{ fontSize: "1.125rem" }}
               //scrollButtons
               //allowScrollButtonsMobile
               aria-label="scrollable force tabs example">
-              <Tab label="Meu contrato" disableRipple />
-              <Tab label="Dados de cobrança" disableRipple />
-              <Tab label="Minhas Faturas" disableRipple />
+              <Tab sx={{ fontSize: "1.125rem", textTransform: "capitalize" }} label="Meu contrato" disableRipple />
+              <Tab sx={{ fontSize: "1.125rem", textTransform: "capitalize" }} label="Dados de cobrança" disableRipple />
+              <Tab sx={{ fontSize: "1.125rem", textTransform: "capitalize" }} label="Minhas Faturas" disableRipple />
             </Tabs>
           </Box>
 

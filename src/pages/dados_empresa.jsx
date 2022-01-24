@@ -117,7 +117,7 @@ export default function Page() {
             sx={{ fontSize: { sm: "1rem" } }}>
             Principais dados e informações da empresa
           </Typography>
-          <Card sx={{ position: "relative" }}>
+          <Card variant="s-none" sx={{ position: "relative" }}>
             <Box
               sx={{
                 px: "25px",
@@ -229,7 +229,7 @@ export default function Page() {
             sx={{ fontSize: { sm: "1rem" } }}>
             Principais documentos da sua empresa
           </Typography>
-          <Card sx={{ position: "relative" }}>
+          <Card variant="s-none" sx={{ position: "relative" }}>
             <Box
               sx={{
                 px: "25px",
@@ -375,7 +375,7 @@ export default function Page() {
             Este é o seu sindicato, para mais informações acesse a página do
             sindicato
           </Typography>
-          <Card sx={{ position: "relative" }}>
+          <Card variant="s-none" sx={{ position: "relative" }}>
             <Box
               sx={{
                 px: "25px",
